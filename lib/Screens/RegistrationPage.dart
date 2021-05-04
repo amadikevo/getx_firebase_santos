@@ -1,4 +1,4 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_firebase_santos/GetXHelper/FirebaseController.dart';
@@ -10,10 +10,10 @@ import 'package:get/get.dart';
 import 'LoginPage.dart';
 
 class RegistrationPage extends GetWidget<FirebaseController> {
-  final TextEditingController firstName = TextEditingController();
-  final TextEditingController lastName = TextEditingController();
-  final TextEditingController email = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastName = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class RegistrationPage extends GetWidget<FirebaseController> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                       child: TextField(
-                        controller: firstName,
+                        controller: _firstName,
                         decoration: InputDecoration(
                           hintText: 'First Name',
                           hintStyle: TextStyle(color: Colors.white),
@@ -70,7 +70,7 @@ class RegistrationPage extends GetWidget<FirebaseController> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                       child: TextField(
-                        controller: lastName,
+                        controller: _lastName,
                         decoration: InputDecoration(
                           hintText: 'Last Name',
                           hintStyle: TextStyle(color: Colors.white),
@@ -93,7 +93,7 @@ class RegistrationPage extends GetWidget<FirebaseController> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                       child: TextField(
-                        controller: email,
+                        controller: _email,
                         decoration: InputDecoration(
                           hintText: 'Email',
                           hintStyle: TextStyle(color: Colors.white),
@@ -116,7 +116,7 @@ class RegistrationPage extends GetWidget<FirebaseController> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                       child: TextField(
-                        controller: password,
+                        controller: _password,
                         decoration: InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.white),
@@ -138,8 +138,8 @@ class RegistrationPage extends GetWidget<FirebaseController> {
                     HeightBox(20.0),
                     GestureDetector(
                       onTap: () {
-                        final close = context.showLoading(msg: "Loading");
-                        Future.delayed(4.seconds);
+                        //final close = context.showLoading(msg: "Loading");
+                        //  Future.delayed(4.seconds);
                         registerUser();
                       },
                       child: "Sign-up"
@@ -189,6 +189,9 @@ class RegistrationPage extends GetWidget<FirebaseController> {
 
   void registerUser() {
     controller.createUser(
-        firstName.text, lastName.text, email.text, password.text);
+        firstName: _firstName.text.trim(),
+        lastName: _lastName.text.trim(),
+        email: _email.text.trim(),
+        password: _password.text.trim());
   }
 }

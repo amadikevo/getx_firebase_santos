@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:getx_firebase_santos/Screens/Dashboard.dart';
 import 'package:getx_firebase_santos/Screens/LoginPage.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:velocity_x/velocity_x.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -11,7 +12,7 @@ class FirebaseController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
-  static final FacebookLogin facebookSignIn = new FacebookLogin();
+  FacebookLogin facebookSignIn = new FacebookLogin();
   Rxn<User> _firebaseUser = Rxn<User>();
 
   get user => _firebaseUser.value?.email;
@@ -25,24 +26,19 @@ class FirebaseController extends GetxController {
   }
 
   // function to createuser, login and sign out user
-  void createUser(
-      String firstName, String lastName, String email, String password) async {
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("Users");
-
-    Map<String, String> userdata = {
-      "First Name": firstName,
-      "Last Name": lastName,
-      "Email": email
-    };
-
+  createUser(
+      {String firstName,
+      String lastName,
+      String email,
+      String password}) async {
+    print("Hello");
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      reference.add(userdata).then((value) => Get.offAll(LoginPage()));
+      print(value.user.email);
+      Get.offAll(LoginPage());
     }).catchError(
-      (onError) =>
-          Get.snackbar("Error while creating account", onError.message),
+      (error) => Get.snackbar("Error while creating account", error.message),
     );
   }
 
@@ -50,8 +46,14 @@ class FirebaseController extends GetxController {
     await _auth
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) => Get.offAll(Dashboard()))
-        .catchError((onError) =>
-            Get.snackbar("Error while siging in", onError.message));
+        .catchError((onError) => Get.snackbar(
+              "Error while siging in",
+              onError.message,
+              snackPosition: SnackPosition.BOTTOM,
+              duration: Duration(seconds: 7),
+              backgroundColor: Colors.red,
+              colorText: Colors.white,
+            ));
   }
 
   void signOut() async {
