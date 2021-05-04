@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "179597963040",
+    "project_id": "getx-flutter-santos",
+    "storage_bucket": "getx-flutter-santos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179597963040:android:3616e536cb1f263db1f145",
+        "android_client_info": {
+          "package_name": "com.example.getx_firebase_santos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179597963040-i9510qb365pj6uk3001k7obc49hsctq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgsiA9X7LmITZqy_8GTm9OhBsIEDJXCL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179597963040-i9510qb365pj6uk3001k7obc49hsctq7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
