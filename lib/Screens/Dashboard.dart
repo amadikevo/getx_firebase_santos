@@ -15,7 +15,7 @@ class Dashboard extends GetWidget<FirebaseController> {
             Image.network(controller.imageUrl),
             ElevatedButton(
               onPressed: () {
-                controller.signOut();
+                controller.signout();
               },
               child: Text("Sign Out ${controller.user}"),
             ),

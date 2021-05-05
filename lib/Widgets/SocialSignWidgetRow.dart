@@ -10,7 +10,7 @@ class SocialSigninWidgetRow extends GetWidget<FirebaseController> {
       GestureDetector(
         onTap: () {
           print("Google Clicked");
-          controller.google_SignIn();
+          controller.googlesignIn();
         },
         child: Container(
           width: 30,

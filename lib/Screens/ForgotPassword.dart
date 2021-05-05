@@ -60,7 +60,7 @@ class ForgotPassword extends GetWidget<FirebaseController> {
                       HeightBox(20.0),
                       GestureDetector(
                         onTap: () {
-                          controller.sendPasswordResetEmail(email.text);
+                          controller.sendpasswordresetemail(email.text);
                         },
                         child: "Reset Password"
                             .text

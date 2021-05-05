@@ -82,7 +82,7 @@ class DeleteAccount extends GetWidget<FirebaseController> {
                       GestureDetector(
                           onTap: () {
                             print("Login clicked event");
-                            controller.deleteUserAccount(
+                            controller.deleteuseraccount(
                                 email.text, password.text);
                           },
                           child: "Delete Account"
