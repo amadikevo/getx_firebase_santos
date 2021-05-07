@@ -39,23 +39,29 @@ class FirebaseController extends GetxController {
       "Last Name": lastname,
       "Email": email
     };
-
-    await _auth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) {
-      reference.add(userdata).then((value) => Get.offAll(LoginPage()));
-    }).catchError(
-      (onError) =>
-          Get.snackbar("Error while creating account ", onError.message),
-    );
+    try {
+      UserCredential usercredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        reference.add(userdata).then((value) => Get.offAll(LoginPage()));
+      }).catchError(
+        (onError) => Get.snackbar(
+            "Error while creating account ", onError.message,
+            snackPosition: SnackPosition.BOTTOM),
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
-  void login(String email, String password) async {
-    await _auth
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((value) => Get.offAll(Dashboard()))
-        .catchError(
-            (onError) => Get.snackbar("Error while sign in ", onError.message));
+  void login({String email, String password}) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      Get.offAll(Dashboard());
+    } catch (onError) {
+      Get.snackbar("Error while sign in ", onError.message,
+          snackPosition: SnackPosition.BOTTOM);
+    }
   }
 
   void signout() async {
@@ -66,12 +72,13 @@ class FirebaseController extends GetxController {
     await _auth.sendPasswordResetEmail(email: email).then((value) {
       Get.offAll(LoginPage());
       Get.snackbar("Password Reset email link is been sent", "Success");
-    }).catchError(
-        (onError) => Get.snackbar("Error In Email Reset", onError.message));
+    }).catchError((onError) => Get.snackbar(
+        "Error In Email Reset", onError.message,
+        snackPosition: SnackPosition.BOTTOM));
   }
 
   void deleteuseraccount(String email, String pass) async {
-    User user = await _auth.currentUser;
+    User user = _auth.currentUser;
 
     AuthCredential credential =
         EmailAuthProvider.credential(email: email, password: pass);
@@ -81,7 +88,8 @@ class FirebaseController extends GetxController {
         Get.offAll(LoginPage());
         Get.snackbar("User Account Deleted ", "Success");
       });
-    }).catchError((onError) => Get.snackbar("Credential Error", "Failed"));
+    }).catchError((onError) => Get.snackbar("Credential Error", "Failed",
+        snackPosition: SnackPosition.BOTTOM));
   }
 
   void googlesignIn() async {
@@ -90,7 +98,7 @@ class FirebaseController extends GetxController {
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 
     final User user = (await _auth

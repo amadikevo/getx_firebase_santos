@@ -38,12 +38,11 @@ class LoginPage extends GetWidget<FirebaseController> {
                 HeightBox(20.0),
                 Padding(
                     padding: EdgeInsets.fromLTRB(30, 0, 20, 0),
-                    child: TextField(
+                    child: TextFormField(
                       controller: email,
                       decoration: InputDecoration(
                         hintText: 'Email',
-                        hintStyle: TextStyle(
-                            color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(color: Colors.white),
@@ -61,7 +60,7 @@ class LoginPage extends GetWidget<FirebaseController> {
                 HeightBox(20.0),
                 Padding(
                   padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                  child: TextField(
+                  child: TextFormField(
                       controller: password,
                       decoration: InputDecoration(
                         hintText: 'Password',
@@ -140,6 +139,6 @@ class LoginPage extends GetWidget<FirebaseController> {
   }
 
   void _login() {
-    controller.login(email.text, password.text);
+    controller.login(email: email.text, password: password.text);
   }
 }

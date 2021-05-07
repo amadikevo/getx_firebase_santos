@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:getx_firebase_santos/GetXHelper/bindings/auth_bindings.dart';
 import 'package:getx_firebase_santos/WelcomePage.dart';
 //import 'package:getx_firebase_santos/isSignedIn.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Firebase Demo',
+        initialBinding: AuthBindings(),
         theme: ThemeData(
             primarySwatch: Colors.blue, accentColor: Colors.blue[400]),
         home: LoginPage(),
